@@ -21,6 +21,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'organization_id',
+        'role',
+        'phone',
+        'profile_image',
         'password',
     ];
 
@@ -45,5 +49,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
+    public function tenants(){
+          
+        return $this->hasOne(Tenant::class);
+
     }
 }
