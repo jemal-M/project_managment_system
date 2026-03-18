@@ -11,6 +11,7 @@ class Property extends Model
     ];
     public function organization(){
          
+    
         return $this->belongsTo(Organization::class);
 
     }
