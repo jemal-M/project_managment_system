@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,14 +11,28 @@ class DatabaseSeeder extends Seeder
 
     /**
      * Seed the application's database.
+     *
+     * Order of seeders is critical due to dependencies:
+     * 1. OrganizationSeeder - Base entity with no dependencies
+     * 2. PropertySeeder - Belongs to organization
+     * 3. UnitSeeder - Belongs to property
+     * 4. UserSeeder - Users for organizations (includes admin, manager, tenant roles)
+     * 5. TenantSeeder - Linked to users
+     * 6. LeaseSeeder - Links tenants to units
+     * 7. PaymentSeeder - Links to leases and tenants
+     * 8. MaintenanceRequestSeeder - Links to units and tenants
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            OrganizationSeeder::class,
+            PropertySeeder::class,
+            UnitSeeder::class,
+            UserSeeder::class,
+            TenantSeeder::class,
+            LeaseSeeder::class,
+            PaymentSeeder::class,
+            MaintenanceRequestSeeder::class,
         ]);
     }
 }

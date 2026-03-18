@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LeaseController;
+use App\Http\Controllers\MaintenanceRequestController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\UnitController;
@@ -66,6 +68,20 @@ Route::get('/user', function (Request $request) {
      Route::get('organizations/search/{name}', [OrganizationController::class, 'search']);
      Route::get('organizations/{id}/edit', [OrganizationController::class, 'edit']);
 
-     
-      
+     Route::get('payments', [PaymentController::class, 'index']);
+    Route::post('payments', [PaymentController::class, 'store']);
+    Route::get('payments/{id}', [PaymentController::class, 'show']);
+    Route::put('payments/{id}', [PaymentController::class, 'update']);
+    Route::delete('payments/{id}', [PaymentController::class, 'destroy']);
+    Route::get('payments/{id}/edit', [PaymentController::class, 'edit']);
+
+    Route::get('maintenance_requests',[MaintenanceRequestController::class,'index']);
+    Route::post('maintenance_requests', [MaintenanceRequestController::class, 'store']);
+    Route::get('maintenance_requests/{id}', [MaintenanceRequestController::class, 'show']);
+    Route::put('maintenance_requests/{id}', [MaintenanceRequestController::class, 'update']);
+    Route::delete('maintenance_requests/{id}', [MaintenanceRequestController::class, 'destroy']);
+    Route::get('maintenance_requests/{id}/edit', [MaintenanceRequestController::class, 'edit']);
+    Route::get('maintenance_requests/search/{name}', [MaintenanceRequestController::class, 'search']);
+    Route::get('maintenance_requests/property/{propertyId}', [MaintenanceRequestController::class, 'getByProperty']);
+    
 })->middleware('auth:sanctum');

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId("organization_id")->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('organization_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('email')->unique();
-            $table->string("phone")->nullable();
-            $table->enum("role", ["admin", "manager",'tenenat'])->default('tenenat');
+            $table->string('phone')->nullable();
+            $table->enum('role', ['admin', 'manager', 'tenant'])->default('tenant');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('profile_image')->nullable();
